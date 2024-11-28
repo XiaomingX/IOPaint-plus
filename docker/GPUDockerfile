@@ -1,0 +1,19 @@
+FROM nvidia/cuda:11.7.1-runtime-ubuntu20.04
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    software-properties-common \
+    libsm6 libxext6 ffmpeg libfontconfig1 libxrender1 libgl1-mesa-glx \
+    curl python3-pip
+
+RUN pip3 install --upgrade pip
+RUN pip3 install torch==2.1.0 torchvision==0.16.0 --index-url https://download.pytorch.org/whl/cu118
+RUN pip3 install xformers==0.0.22.post4 --index-url https://download.pytorch.org/whl/cu118
+
+ARG version 
+
+RUN pip3 install lama-cleaner==$version
+RUN lama-cleaner --install-plugins-package
+
+EXPOSE 8080
+
+CMD ["bash"]

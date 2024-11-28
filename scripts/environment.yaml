@@ -1,0 +1,11 @@
+name: lama-cleaner
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - conda
+  - git
+  - git-lfs
+  - python=3.10
+  - invoke
+  - rich
